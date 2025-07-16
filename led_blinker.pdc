@@ -1,0 +1,35 @@
+# Pin constraints file for LED Blinker on GR740-MINI board
+# Target: CertusPro-NX LFCPNX-100-9BBG484
+
+# Clock input - 50MHz oscillator
+# You need to verify the exact pin location for your board
+ldc_set_location -site {B20} [get_ports CLK_50MHZ]
+ldc_set_port -iobuf {IO_TYPE=LVCMOS33} [get_ports CLK_50MHZ]
+
+# Reset input - Using a general-purpose input pin
+# You can connect this to a button or tie it high for auto-start
+ldc_set_location -site {A21} [get_ports RST_N]
+ldc_set_port -iobuf {IO_TYPE=LVCMOS33 PULLTYPE=UP} [get_ports RST_N]
+
+# LED outputs - These are estimates based on typical LED connections
+# IMPORTANT: You must verify these pin assignments with your actual board schematic
+ldc_set_location -site {E21} [get_ports LED12]
+ldc_set_location -site {E22} [get_ports LED13]
+ldc_set_location -site {F21} [get_ports LED14]
+ldc_set_location -site {F22} [get_ports LED15]
+
+# Set all LED outputs to LVCMOS33
+ldc_set_port -iobuf {IO_TYPE=LVCMOS33 DRIVE=8} [get_ports LED12]
+ldc_set_port -iobuf {IO_TYPE=LVCMOS33 DRIVE=8} [get_ports LED13]
+ldc_set_port -iobuf {IO_TYPE=LVCMOS33 DRIVE=8} [get_ports LED14]
+ldc_set_port -iobuf {IO_TYPE=LVCMOS33 DRIVE=8} [get_ports LED15]
+
+# Create clock constraint
+create_clock -name {CLK_50MHZ} -period 20.000 [get_ports CLK_50MHZ]
+
+# Set false paths for the reset signal
+set_false_path -from [get_ports RST_N]
+
+# Output delays for LEDs (not critical for this application)
+set_output_delay -clock CLK_50MHZ -max 5.0 [get_ports LED*]
+set_output_delay -clock CLK_50MHZ -min 0.0 [get_ports LED*]
