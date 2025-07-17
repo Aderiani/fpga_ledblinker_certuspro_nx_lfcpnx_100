@@ -1,35 +1,29 @@
-# Pin constraints file for LED Blinker on GR740-MINI board
-# Target: CertusPro-NX LFCPNX-100-9BBG484
+# Simple pin constraints - no external clock needed
+# Target: LFCPNX-100-9BBG484C
+# Using FMC connector pins accessible on Bank 0 (3.3V)
 
-# Clock input - 50MHz oscillator
-# You need to verify the exact pin location for your board
-ldc_set_location -site {B20} [get_ports CLK_50MHZ]
-ldc_set_port -iobuf {IO_TYPE=LVCMOS33} [get_ports CLK_50MHZ]
+# Reset input - Using PRSNT_M2C_L (H2) in Bank 0
+ldc_set_location -site {E22} [get_ports RST_N]
+ldc_set_port -iobuf {IO_TYPE=LVCMOS33 PULLMODE=UP} [get_ports RST_N]
 
-# Reset input - Using a general-purpose input pin
-# You can connect this to a button or tie it high for auto-start
-ldc_set_location -site {A21} [get_ports RST_N]
-ldc_set_port -iobuf {IO_TYPE=LVCMOS33 PULLTYPE=UP} [get_ports RST_N]
+# LED outputs - Using Bank 0 pins from FMC connector
 
-# LED outputs - These are estimates based on typical LED connections
-# IMPORTANT: You must verify these pin assignments with your actual board schematic
+# CLK_DIR (B1) -> E21
 ldc_set_location -site {E21} [get_ports LED12]
-ldc_set_location -site {E22} [get_ports LED13]
-ldc_set_location -site {F21} [get_ports LED14]
-ldc_set_location -site {F22} [get_ports LED15]
-
-# Set all LED outputs to LVCMOS33
 ldc_set_port -iobuf {IO_TYPE=LVCMOS33 DRIVE=8} [get_ports LED12]
+
+# PG_M2C (F1) -> F20
+ldc_set_location -site {F20} [get_ports LED13]
 ldc_set_port -iobuf {IO_TYPE=LVCMOS33 DRIVE=8} [get_ports LED13]
+
+# Using generic Bank 0 pins - you'll need to verify these are accessible
+ldc_set_location -site {D22} [get_ports LED14]
 ldc_set_port -iobuf {IO_TYPE=LVCMOS33 DRIVE=8} [get_ports LED14]
+
+ldc_set_location -site {D21} [get_ports LED15]
 ldc_set_port -iobuf {IO_TYPE=LVCMOS33 DRIVE=8} [get_ports LED15]
 
-# Create clock constraint
-create_clock -name {CLK_50MHZ} -period 20.000 [get_ports CLK_50MHZ]
+# Global settings
+ldc_set_sysconfig {SLAVE_SPI_PORT=DISABLE MASTER_SPI_PORT=DISABLE}
 
-# Set false paths for the reset signal
-set_false_path -from [get_ports RST_N]
-
-# Output delays for LEDs (not critical for this application)
-set_output_delay -clock CLK_50MHZ -max 5.0 [get_ports LED*]
-set_output_delay -clock CLK_50MHZ -min 0.0 [get_ports LED*]
+# Note: All pins are in Bank 0 which supports 3.3V I/O

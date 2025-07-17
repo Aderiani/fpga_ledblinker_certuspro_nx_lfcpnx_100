@@ -1,39 +1,23 @@
-# Radiant build script for LED Blinker project
-# Run with: radiantc -t build.tcl
+#!/usr/bin/env tclsh
+# Simple build script for LED Blinker
+# Run with: radiantc -t simple_build.tcl
 
 # Create new project
-prj_create -name "led_blinker" -impl "impl_1" -dev LFCPNX-100-9BBG484C -synthesis "synplify"
+prj_create -name "led_blinker" -impl "impl_1" -dev LFCPNX-100-9BBG484C -performance 9_High-Performance_1.0V -synthesis "lse"
 
 # Add source files
-prj_add_source "led_blinker.v"
-prj_add_source "led_blinker_top.v"
+prj_add_source "simple_led_blinker.v"
 
-# Add constraints files
-prj_add_source "led_blinker.pdc"
-prj_add_source "led_blinker.sdc"
-
-# Set top level module
-prj_set_impl_opt top "led_blinker_top"
-
-# Synthesis options
-prj_set_impl_opt {include path} ""
-prj_set_impl_opt {syn_keep_hierarchy} "rebuilt"
-prj_set_impl_opt {syn_frequency} "100.0"
-
-# Implementation options  
-prj_set_impl_opt {buskeep} "0"
+# Add constraint file
+prj_add_source "simple_led_blinker.pdc"
 
 # Save project
 prj_save
 
-# Run synthesis
-prj_run_synthesis
+# Run all implementation steps
+prj_run Synthesis -impl impl_1
+prj_run Map -impl impl_1
+prj_run PAR -impl impl_1
+prj_run Export -impl impl_1 -task Bitgen
 
-# Run place and route
-prj_run_map
-prj_run_par
-
-# Generate bitstream
-prj_run_export
-
-puts "Build complete! Bitstream generated in impl_1 directory"
+puts "Build complete! Bitstream should be in impl_1 directory"
