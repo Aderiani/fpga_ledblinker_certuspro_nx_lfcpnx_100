@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RadiantProject version="4.2" radiant="2025.1.0.39.0" title="led_blinker" device="LFCPNX-100-9BBG484C" performance_grade="9_High-Performance_1.0V" family_int="jd5d00" device_int="jd5d80" package_int="BBG484" operation_int="COM" speed_int="12" default_implementation="impl_1">
+    <Options/>
+    <Implementation title="impl_1" dir="impl_1" description="impl_1" synthesis="synplify" default_strategy="Strategy1">
+        <Options buskeep="0" syn_frequency="100.0" syn_keep_hierarchy="rebuilt" top="led_blinker_top"/>
+        <Source name="led_blinker.v" type="Verilog" type_short="Verilog">
+            <Options/>
+        </Source>
+        <Source name="led_blinker_top.v" type="Verilog" type_short="Verilog">
+            <Options/>
+        </Source>
+        <Source name="led_blinker.pdc" type="Physical Constraints File" type_short="PDC">
+            <Options/>
+        </Source>
+        <Source name="led_blinker.sdc" type="Pre-Synthesis Constraints File" type_short="SDC">
+            <Options/>
+        </Source>
+    </Implementation>
+    <Strategy name="Strategy1" file="led_blinker1.sty"/>
+</RadiantProject>
