@@ -1,0 +1,56 @@
+# Lattice Diamond / Radiant / iCEcube2 temporary files
+*.ngc
+*.edf
+*.edn
+*.xst
+*.srp
+*.log
+*.map
+*.ngd
+*.ncd
+*.par
+*.bit
+*.bin
+*.jed
+*.mcs
+*.svf
+*.prj
+*.twr
+*.twx
+*.vm
+*.vho
+*.syr
+*.sty
+*.lso
+*.drc
+*.bgn
+*.bld
+*.rpt
+*.bak
+*.tmp
+*.vhd~
+*.v~
+*.tcl~
+
+# Simulation output
+*.vcd
+*.vvp
+*.sim
+sim/
+
+# Generated constraint/output files
+*.pcf
+*.sdc
+*.ldf
+
+# Project-specific tools
+output/
+build/
+temp/
+*.jou
+*.wdb
+
+# VS Code/IDE files
+.vscode/
+*.swp
+*~
