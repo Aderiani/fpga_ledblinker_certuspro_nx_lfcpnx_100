@@ -3,10 +3,10 @@
     <Options/>
     <Implementation title="impl_1" dir="impl_1" description="impl_1" synthesis="lse" default_strategy="Strategy1">
         <Options/>
-        <Source name="simple_led_blinker.v" type="Verilog" type_short="Verilog">
+        <Source name="led_blinker.v" type="Verilog" type_short="Verilog">
             <Options/>
         </Source>
-        <Source name="simple_led_blinker.pdc" type="Physical Constraints File" type_short="PDC">
+        <Source name="led_blinker.pdc" type="Physical Constraints File" type_short="PDC">
             <Options/>
         </Source>
     </Implementation>

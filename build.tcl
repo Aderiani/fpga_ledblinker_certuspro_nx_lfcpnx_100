@@ -1,15 +1,15 @@
 #!/usr/bin/env tclsh
-# Simple build script for LED Blinker
-# Run with: radiantc -t simple_build.tcl
+# Build script for On-Board LED Blinker
+# Run with: radiantc -t onboard_build.tcl
 
 # Create new project
 prj_create -name "led_blinker" -impl "impl_1" -dev LFCPNX-100-9BBG484C -performance 9_High-Performance_1.0V -synthesis "lse"
 
 # Add source files
-prj_add_source "simple_led_blinker.v"
+prj_add_source "led_blinker.v"
 
 # Add constraint file
-prj_add_source "simple_led_blinker.pdc"
+prj_add_source "led_blinker.pdc"
 
 # Save project
 prj_save
